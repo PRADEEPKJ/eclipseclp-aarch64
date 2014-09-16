@@ -1,0 +1,20 @@
+/Makefile.in/1.7/Fri Mar 19 05:55:38 2010//
+/README/1.7/Wed Dec  9 03:32:34 2009//
+/auxmap.ecl/1.1/Fri Jun 13 00:38:55 2008//
+/compiler_analysis.ecl/1.9/Fri Mar 12 10:22:46 2010//
+/compiler_builtins.ecl/1.4/Mon Apr 29 01:05:55 2013//
+/compiler_codegen.ecl/1.31/Sat Feb  9 20:27:57 2013//
+/compiler_common.ecl/1.24/Fri Mar 12 10:22:46 2010//
+/compiler_compound.ecl/1.12/Thu Sep 11 01:17:29 2008//
+/compiler_indexing.ecl/1.12/Sun Jul 25 13:29:04 2010//
+/compiler_map.ecl/1.3/Sun Jul 25 13:29:04 2010//
+/compiler_normalise.ecl/1.24/Tue Feb 26 01:21:20 2013//
+/compiler_peephole.ecl/1.27/Thu Jul 16 09:11:23 2009//
+/compiler_regassign.ecl/1.8/Sun Jul 25 13:29:04 2010//
+/compiler_test.ecl/1.24/Sat Feb  9 20:27:57 2013//
+/compiler_varclass.ecl/1.15/Thu Jul 16 09:11:23 2009//
+/ecl_compiler.ecl/1.24/Tue Feb 26 02:10:06 2013//
+/source_processor.ecl/1.16/Thu Feb 14 02:55:20 2013//
+/test.ref/1.38/Fri Aug 10 21:50:34 2012//
+/testo.ref/1.36/Fri Aug 10 21:50:34 2012//
+D
