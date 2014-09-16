@@ -2704,7 +2704,7 @@ else
 test "x$ac_build_alias" = x &&
   ac_build_alias=`$SHELL "$ac_aux_dir/config.guess"`
 test "x$ac_build_alias" = x &&
-  as_fn_error $? "cannot guess build type; you must specify one" "$LINENO" 5
+  as_fn_error $? "cannot guess build type; you must specify one" "$LINENO" 5 
 ac_cv_build=`$SHELL "$ac_aux_dir/config.sub" $ac_build_alias` ||
   as_fn_error $? "$SHELL $ac_aux_dir/config.sub $ac_build_alias failed" "$LINENO" 5
 
@@ -2804,6 +2804,9 @@ case $host in
 	;;
     alpha*-*-linux*)
 	arch=alpha_linux
+	;;
+    aarch64-*-linux*)
+        arch=aarch64_linux
 	;;
     *)
 	as_fn_error $? "Unknown architecture: $host" "$LINENO" 5
@@ -3267,6 +3270,21 @@ case "$ARCH" in
     ;;
  x86_64_linux)
     OPTIMIZE="sh ../src/opt_i386_linux.sh"
+    LOCAL_FLAGS="-DD_LOAD"
+    OBJECT_SUFFIX=so
+    OBJECTS_SUFFIX=so
+    LD_C_SO="\$(CC) \$(OPT_FLAGS) \$(CFLAGS) \$(CPPFLAGS) -shared \$< -o \$@"
+    PL_C_SO=".c.so:"
+    PD_C_SO="$LD_C_SO"
+    PL_O_SO=".o.so:"
+    PD_O_SO="$LD_C_SO"
+    WANT_MPS=y
+    # some bash shell set OSTYPE to gnu-linux
+    OSTYPE="linux"
+    ;;
+ aarch64_linux)
+    echo "inside aarch64"
+    OPTIMIZE="sh ../src/opt_aarch64_linux.sh"
     LOCAL_FLAGS="-DD_LOAD"
     OBJECT_SUFFIX=so
     OBJECTS_SUFFIX=so
@@ -8052,7 +8070,7 @@ fi
 
 if test "$tcl_requested" = "yes"; then
 
-    TCL_REQUIRED="8.5 8.4 8.3"
+    TCL_REQUIRED="8.6 8.5 8.4 8.3"
 
     if test "$OSCLASS" != "win" ; then
 		{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for X" >&5
@@ -8620,6 +8638,7 @@ fi
 case $ARCH in
     i386_linux)		CPLEX_ARCH_PREFIX=x86_debian ;;
     x86_64_linux)	CPLEX_ARCH_PREFIX=x86-64_debian ;;
+    aarch64_linux)      CPLEX_ARCH_PREFIX=aarch64_linux;;
     sparc_sunos5)	CPLEX_ARCH_PREFIX=ultrasparc32 ;;
     i386_nt)		CPLEX_ARCH_PREFIX=x86_win32 ;;
     x86_64_nt)		CPLEX_ARCH_PREFIX=x64_win64 ;;
@@ -8711,6 +8730,7 @@ fi
 case $ARCH in
     i386_linux)		GRB_ARCH=linux32 ;;
     x86_64_linux)	GRB_ARCH=linux64 ;;
+    aarch64_linux)      GRB_ARCH=linux64 ;;
     i386_nt)		GRB_ARCH=win32 ;;
     x86_64_nt)		GRB_ARCH=win64 ;;
     i386_macosx)	GRB_ARCH=mac32 ;;
@@ -10030,6 +10050,7 @@ _ACEOF
 
 cat >>$CONFIG_STATUS <<\_ACEOF || ac_write_fail=1
 
+echo $c_config_targets
 # Handling of arguments.
 for ac_config_target in $ac_config_targets
 do

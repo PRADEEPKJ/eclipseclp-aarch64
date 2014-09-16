@@ -57,6 +57,7 @@ proc ec_arch {} {
 	    switch -glob $tcl_platform(machine) {
 		alpha	{ return alpha_linux }
 		x86_64	{ return x86_64_linux }
+		aarch64 { return aarch64_linux}
 		i?86	{ return i386_linux }
 	    }
 	}

@@ -90,6 +90,7 @@ Linux)
 	case $MODEL in
 	alpha)	ARCH=alpha_linux;;
 	x86_64)	ARCH=x86_64_linux;;
+	aarch64) ARCH=aarch64_linux;;
 	*)	ARCH=i386_linux;;
         esac;;
 HP-UX)

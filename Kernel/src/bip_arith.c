@@ -1666,6 +1666,7 @@ _int_max(value v1, value v2, pword *pres)
 static int
 _int_abs(value v1, pword *pres)
 {
+ 
     if (v1.nint < 0)
 	return _int_neg(v1, pres);
     Make_Integer(pres, v1.nint);

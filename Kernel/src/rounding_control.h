@@ -141,7 +141,9 @@
 
 #elif defined(_FPU_SETCW)
 
+
 # if defined(__x86_64) && defined(__SSE_MATH__)
+
 
     /* 
     ** On x86_64, gcc by default uses the SSE unit to compile floating
@@ -189,6 +191,7 @@
 
 # else
 
+#if !defined(__aarch64__)
     /* e.g. i386_linux, or x86_64_linux compiled with -mfpmath=387 */
 
     /*
@@ -200,6 +203,7 @@
     ** It's annoying that there are no convenient masks for rounding mode
     ** or precision...
     */
+
 
     #define Declare_Rounding_Control_State \
 	fpu_control_t ec_fpu_control_orig_; \
@@ -236,6 +240,53 @@
 	    }
 
 # endif
+# endif
+
+#if defined (__aarch64__)
+ 
+    #include <fenv.h>
+
+    #define Declare_Rounding_Control_State \
+	fpu_control_t ec_fpu_control_orig_; \
+	fpu_control_t ec_fpu_control_up_; \
+	fpu_control_t ec_fpu_control_down_;
+
+    extern fpu_control_t ec_fpu_control_orig_;
+    extern fpu_control_t ec_fpu_control_up_;
+    extern fpu_control_t ec_fpu_control_down_;
+
+    /* Define some useful mask values. */
+    /* Need to look into this in future with suitable masks for aarch64 */
+
+    #define EC_FPU_RC_MASK \
+		(FE_DOWNWARD | FE_UPWARD | FE_TOWARDZERO | _FE_TONEAREST)
+
+    /*  #define EC_FPU_PRECISION_MASK \
+		(_FPU_EXTENDED | _FPU_DOUBLE | _FPU_SINGLE)
+        #define EC_FPU_MASK \
+		(EC_FPU_RC_MASK | EC_FPU_PRECISION_MASK)
+    */
+
+    #define init_rounding_modes() { \
+		_FPU_GETCW(ec_fpu_control_orig_); \
+		ec_fpu_control_up_ = ec_fpu_control_down_ = \
+		    (ec_fpu_control_orig_); \
+		ec_fpu_control_up_ |= FE_UPWARD; \
+		ec_fpu_control_down_ |= FE_DOWNWARD; \
+	    }
+    #define set_round_up() { \
+		_FPU_SETCW(ec_fpu_control_up_); \
+	    }
+    #define set_round_down() { \
+		_FPU_SETCW(ec_fpu_control_down_); \
+	    }
+    #define restore_round_mode() { \
+		_FPU_SETCW(ec_fpu_control_orig_); \
+	    }
+
+#endif
+
+
 
 #elif defined(HAVE_FPSETROUND)
 

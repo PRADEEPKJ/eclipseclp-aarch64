@@ -4,6 +4,7 @@
 ARCHITECTURES="\
 	i386_linux \
 	x86_64_linux \
+	aarch64_linux \
 	sparc_sunos5 \
 	i386_nt \
 	x86_64_nt
@@ -75,6 +76,7 @@ WIN_NATIVE_MACHINE=
 # Machines to use to build each architecture.
 MACHINE_i386_linux=$DISK_MACHINE
 MACHINE_x86_64_linux=
+MACHINE_aarch64_linux=
 MACHINE_sparc_sunos5=
 MACHINE_alpha_linux=
 MACHINE_ppc_macosx=
@@ -112,6 +114,7 @@ supports_java() {   # machine, arch
 
 TEST_MACHINES_i386_linux=
 TEST_MACHINES_x86_64_linux=
+TEST_MACHINE_aarch64_linux=
 TEST_MACHINES_sparc_sunos5=
 TEST_MACHINES_alpha_linux=
 TEST_MACHINES_ppc_macosx=
