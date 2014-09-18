@@ -3283,7 +3283,6 @@ case "$ARCH" in
     OSTYPE="linux"
     ;;
  aarch64_linux)
-    echo "inside aarch64"
     OPTIMIZE="sh ../src/opt_aarch64_linux.sh"
     LOCAL_FLAGS="-DD_LOAD"
     OBJECT_SUFFIX=so
