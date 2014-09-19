@@ -91,6 +91,9 @@ case $host in
     alpha*-*-linux*)
 	arch=alpha_linux
 	;;
+    aarch64-*-linux*)
+        arch=aarch64_linux
+	;;
     *)
 	AC_MSG_ERROR([Unknown architecture: $host])
 	;;
@@ -705,6 +708,20 @@ case "$ARCH" in
     # FIND_X is buggy, but not path is needed, so the default one will do
     x_libraries=/usr/lib
     ;;
+ aarch64_linux)
+    LOCAL_FLAGS="-DD_LOAD"
+    OBJECT_SUFFIX=so
+    OBJECTS_SUFFIX=so
+    LD_C_SO="\$(CC) \$(OPT_FLAGS) \$(CFLAGS) \$(CPPFLAGS) -shared \$< -o \$@"
+    PL_C_SO=".c.so:"
+    PD_C_SO="$LD_C_SO"
+    PL_O_SO=".o.so:"
+    PD_O_SO="$LD_C_SO"
+    WANT_MPS=y
+    # some bash shell set OSTYPE to gnu-linux
+    OSTYPE="linux"
+    ;;
+
  *)
     echo $ARCH:Unknown architecture
     exit
@@ -1554,6 +1571,7 @@ case $ARCH in
     x86_64_nt)		CPLEX_ARCH_PREFIX=x64_win64 ;;
     i386_macosx)	CPLEX_ARCH_PREFIX=x86_darwin ;;
     x86_64_macosx)	CPLEX_ARCH_PREFIX=x86-64_darwin ;;
+    aarch64_linux)      CPLEX_ARCH_PREFIX=aarch64-linux;;
     *)			CPLEX_ARCH_PREFIX=unsupported ;;
 esac
 
@@ -1632,6 +1650,7 @@ case $ARCH in
     x86_64_nt)		GRB_ARCH=win64 ;;
     i386_macosx)	GRB_ARCH=mac32 ;;
     x86_64_macosx)	GRB_ARCH=mac64 ;;
+    aarch64_linux)      GRB_ARCH=aarch64;;
     *)			GRB_ARCH=unsupported ;;
 esac
 
